@@ -32,26 +32,26 @@ const AuthProvider = ({children}) => {
         isLoading(true)
         return signOut(auth)
     }
-    useEffect(()=>{
-        const unSubscribe = onAuthStateChanged(auth,currentUser=>{
-            setUser(currentUser);
-            isLoading(false)
-            if(currentUser){
-                axiosPrivate.post('/jwt', {email: currentUser?.email})
-                .then(res=>{
-                    console.log(res.data);
-                })
-            }else{
-                axiosPrivate.post('/logout', {email: currentUser?.email})
-                .then(res=>{
-                    console.log(res.data);
-                })
-            }
-        })
-        return ()=>{
-            unSubscribe()
-        }
-    },[])
+    // useEffect(()=>{
+    //     const unSubscribe = onAuthStateChanged(auth,currentUser=>{
+    //         setUser(currentUser);
+    //         isLoading(false)
+    //         if(currentUser){
+    //             axiosPrivate.post('/jwt', {email: currentUser?.email})
+    //             .then(res=>{
+    //                 console.log(res.data);
+    //             })
+    //         }else{
+    //             axiosPrivate.post('/logout', {email: currentUser?.email})
+    //             .then(res=>{
+    //                 console.log(res.data);
+    //             })
+    //         }
+    //     })
+    //     return ()=>{
+    //         unSubscribe()
+    //     }
+    // },[axiosPrivate])
     const contextData = {user,loading,createUser,updateUser,loginUser,logoutUser,googleLoginUser}
     return (
         <myAuthProvider.Provider value={contextData}>

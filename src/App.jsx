@@ -1,14 +1,12 @@
-import { useContext } from "react";
 import { Outlet } from "react-router-dom";
-import { myAuthProvider } from "./provider/AuthProvider";
+import HeaderNav from "./components/HeaderNav";
 
 function App() {
-  const { logoutUser } =useContext(myAuthProvider);
   return (
-    <>
-    <button onClick={logoutUser} className="btn">logout</button>
-      <Outlet/>
-    </>
+    <div className="font-Roboto">
+    <HeaderNav/>
+    <Outlet/>
+    </div>
   )
 }
 
