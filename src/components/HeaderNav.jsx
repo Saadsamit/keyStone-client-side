@@ -9,7 +9,7 @@ const HeaderNav = () => {
         <NavLink to={'/'} className={'text-[#0B666A] font-semibold'}>home</NavLink>
       </li>
       <li>
-        <NavLink  to={'/All-properties'} className={'text-[#0B666A] font-semibold'}>Allproperties</NavLink>
+        <NavLink  to={'/All-properties'} className={'text-[#0B666A] font-semibold'}>All properties</NavLink>
       </li>
       <li>
         <NavLink  to={'/Dashboard'} className={'text-[#0B666A] font-semibold'}>Dashboard</NavLink>
