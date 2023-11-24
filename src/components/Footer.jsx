@@ -3,7 +3,8 @@ import footerLogo from "../assets/logo-white.png";
 const Footer = () => {
   const footerStyle = {
     background: `url(${footerImg}`,
-    backgroundRepeat: "no-repeat"
+    backgroundRepeat: "no-repeat",
+    backgroundSize: 'cover'
   };
   return (
     <div style={footerStyle} className="hero">
