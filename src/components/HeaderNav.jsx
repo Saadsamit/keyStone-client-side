@@ -57,7 +57,7 @@ const HeaderNav = () => {
             </ul>
           </div>
           <div className="navbar-end">
-            <Link className="btn bg-[#1F8A70] text-[#D7FBE8] hover:bg-[#00425A]">login</Link>
+            <Link className="btnStyle">login</Link>
           </div>
         </div>
       </Container>
