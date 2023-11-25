@@ -1,8 +1,9 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import Container from "./Container";
 import { MdHomeWork } from "react-icons/md";
 // import navBarImg from "../assets/logo-white.png"
 const HeaderNav = () => {
+  const location = useLocation()
   const links = (
     <>
       <li>
@@ -40,7 +41,7 @@ const HeaderNav = () => {
               </label>
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 gap-1"
+                className="menu menu-sm dropdown-content mt-3 capitalize z-[1] p-2 shadow bg-base-100 rounded-box w-52 gap-1"
               >
                 {links}
               </ul>
@@ -52,12 +53,14 @@ const HeaderNav = () => {
             </a>
           </div>
           <div className="navbar-center hidden lg:flex">
-            <ul className="text-[#00425A] menu menu-horizontal px-1 gap-4">
+            <ul className="text-[#00425A] menu menu-horizontal px-1 gap-4 capitalize text-lg">
               {links}
             </ul>
           </div>
           <div className="navbar-end">
-            <Link className="btnStyle">login</Link>
+            {
+              location.pathname === '/login' ?  <Link to={'/Registration'} className="btnStyle">Registration</Link> : <Link to={'/login'} className="btnStyle">login</Link>
+            }
           </div>
         </div>
       </Container>
