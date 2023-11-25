@@ -1,22 +1,33 @@
 import { useContext, useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { myAuthProvider } from "../provider/AuthProvider";
 import { useForm } from "react-hook-form";
 import Container from "../components/Container";
 import loginImg from "../assets/login.jpg";
+import NewUser from "../api/newUser";
 const Login = () => {
   const { googleLoginUser, loginUser } = useContext(myAuthProvider);
   const [passwordShow, setPasswordShow] = useState(true);
   const { register, reset, handleSubmit } = useForm();
+  const location = useLocation()
+  const navigate = useNavigate()
   const handleGoogle = () => {
-    googleLoginUser();
+    googleLoginUser().then(res=>{
+      NewUser(res.user).then(()=>{
+        location.state ? navigate(location.state) : navigate('/')
+      })
+    });
   };
   const onSubmit = (data) => {
     const email = data.email;
     const password = data.password;
-    loginUser(email, password);
+    loginUser(email, password).then(res=>{
+      NewUser(res.user).then(()=>{
+        location.state ? navigate(location.state) : navigate('/')
+      })
+    })
     reset();
   };
   return (

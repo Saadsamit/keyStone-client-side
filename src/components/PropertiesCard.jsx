@@ -14,7 +14,7 @@ const PropertiesCard = ({ data }) => {
           </div>
           <p>{data.agent.name}</p>
         </div>
-        <h2 className="card-title">
+        <h2 className="card-title items-start">
           {data.property.title}
           <div className="badge bg-[#1F8A70] text-[#D7FBE8]">{data.status}</div>
         </h2>

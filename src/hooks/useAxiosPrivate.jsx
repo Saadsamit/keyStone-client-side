@@ -7,5 +7,4 @@ const axiosPrivate = axios.create({
 const useAxiosPrivate = () => {
     return axiosPrivate
 };
-
 export default useAxiosPrivate;

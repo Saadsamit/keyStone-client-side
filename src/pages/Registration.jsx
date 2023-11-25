@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { imageUploder } from "../api/imageUploder/imageUploder";
 import { myAuthProvider } from "../provider/AuthProvider";
 import Container from "../components/Container";
@@ -10,6 +10,7 @@ const Registration = () => {
   const { createUser, updateUser, logoutUser } = useContext(myAuthProvider);
   const [passwordShow, setPasswordShow] = useState(true);
   const { register, reset, handleSubmit } = useForm();
+  const navigate = useNavigate()
   const onSubmit = async (data) => {
     const imageFile = { image: data.photo_Url[0] };
     const name = data.name;
@@ -18,9 +19,9 @@ const Registration = () => {
     const imgData = await imageUploder(imageFile);
     createUser(email, password).then(() => {
       updateUser(name, imgData.data.display_url).then(() => {
-        logoutUser().then(() => {
-          //nav user to login page
-        });
+        logoutUser().then(()=>{
+          navigate('/login')
+        })
       });
     });
     reset();

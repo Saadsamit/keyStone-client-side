@@ -5,11 +5,13 @@ import AllProperties from "../pages/AllProperties";
 import PropertiesDetail from "../pages/PropertiesDetail";
 import Registration from "../pages/Registration";
 import Login from "./../pages/Login";
+import ErrorPage from "../pages/ErrorPage";
 
 const Router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorPage/>,
     children: [
       {
         index: true,

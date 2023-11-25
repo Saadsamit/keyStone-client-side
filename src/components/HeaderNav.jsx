@@ -1,9 +1,15 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import Container from "./Container";
 import { MdHomeWork } from "react-icons/md";
-// import navBarImg from "../assets/logo-white.png"
+import { useContext } from "react";
+import { CgProfile } from "react-icons/cg";
+import { myAuthProvider } from "../provider/AuthProvider";
 const HeaderNav = () => {
   const location = useLocation()
+  const {user,logoutUser} = useContext(myAuthProvider)
+  const handleLogout = ()=>{
+    logoutUser()
+  }
   const links = (
     <>
       <li>
@@ -59,8 +65,34 @@ const HeaderNav = () => {
           </div>
           <div className="navbar-end">
             {
-              location.pathname === '/login' ?  <Link to={'/Registration'} className="btnStyle">Registration</Link> : <Link to={'/login'} className="btnStyle">login</Link>
+              user ? (
+                <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full">
+                {user.photoURL ? (
+                  <img src={user.photoURL} />
+                ) : (
+                  <div className="flex justify-center items-center h-full">
+                    <CgProfile className="text-2xl"></CgProfile>
+                  </div>
+                )}
+              </div>
+            </label>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[5] p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <a className="justify-between">{user?.displayName}</a>
+              </li>
+              <li onClick={handleLogout}>
+                <a>Logout</a>
+              </li>
+            </ul>
+          </div>
+              ) : location.pathname === '/login' ?  <Link to={'/Registration'} className="btnStyle">Registration</Link> : <Link to={'/login'} className="btnStyle">login</Link>
             }
+            
           </div>
         </div>
       </Container>

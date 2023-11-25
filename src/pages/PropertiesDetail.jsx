@@ -26,7 +26,6 @@ const PropertiesDetail = () => {
     queryKey: ["Detail-Data"],
     queryFn: detailData,
   });
-  console.log(data);
   return (
     <Container data={"py-10 space-y-4"}>
       <div className="h-[70vh] overflow-hidden rounded-xl">

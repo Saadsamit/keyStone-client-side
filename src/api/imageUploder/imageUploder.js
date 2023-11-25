@@ -1,6 +1,5 @@
 import axios from "axios"
 const imgbbUploderLink = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_imgbb_key}`
-console.log(imgbbUploderLink);
 export const imageUploder = async(image) =>{
     const {data} = await axios.post(imgbbUploderLink,image,{
         headers: {
