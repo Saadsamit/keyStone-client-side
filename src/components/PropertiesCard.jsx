@@ -21,7 +21,7 @@ const PropertiesCard = ({ data }) => {
         <p>{data.property.location}</p>
         <p>{data.property.PriceRange}</p>
         <div className="card-actions justify-end">
-          <Link className="btn bg-[#1F8A70] text-[#D7FBE8] hover:bg-[#00425A]">see details</Link>
+          <Link className="btn bg-[#1F8A70] text-[#D7FBE8] hover:bg-[#00425A] capitalize">see details</Link>
         </div>
       </div>
     </div>
