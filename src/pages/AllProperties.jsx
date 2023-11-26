@@ -1,12 +1,12 @@
 import { useState } from "react";
 import PropertiesCard from "../components/PropertiesCard";
 import Container from "../components/Container";
-import LoadindCard from "../components/LoadindCard";
-import allProperties from './../api/AllProperties';
+import allProperties from "./../api/AllProperties";
+import LoadingCards from "../components/LoadingCards";
 
 const AllProperties = () => {
   const [search, setSearch] = useState("");
-  const [allData,refetch,isPending] = allProperties(search)
+  const [allData, refetch, isPending] = allProperties(search);
   const handleSubmit = (e) => {
     e.preventDefault();
     refetch();
@@ -33,11 +33,7 @@ const AllProperties = () => {
       </form>
 
       {isPending ? (
-        <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
-          <LoadindCard />
-          <LoadindCard />
-          <LoadindCard />
-        </div>
+        <LoadingCards />
       ) : (
         <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
           {allData.map((data, idx) => (

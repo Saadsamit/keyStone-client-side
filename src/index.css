@@ -14,3 +14,6 @@ h1,h2,h3,h4,h5,h6,a,button{
 .btnStyle{
     @apply btn bg-[#1F8A70] text-[#D7FBE8] hover:bg-[#00425A] capitalize
 }
+.swiper-button-prev,.swiper-button-next{
+    @apply after:text-[#1F8A70] after:!text-4xl after:font-bold sm:!block !hidden
+}

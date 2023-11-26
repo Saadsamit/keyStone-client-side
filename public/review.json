@@ -1,0 +1,91 @@
+[
+    {
+      "propertyId": "6561baafdf537486f771a0e5",
+      "userEmail": "saadsamit64@gmail.com",
+      "reviewStar": 4.8,
+      "reviewDescription": "Absolutely stunning property! Great location and amazing views.",
+      "reviewTime": "2023-11-24T09:30:00Z",
+      "propertyTitle":"https://i.ibb.co/PGSmmh8/house-1.jpg",
+      "ReviewerName":"Samit Intesar",
+      "ReviewerImage":"https://lh3.googleusercontent.com/a/ACg8ocIh3VgknWgw5HpmZd7i74OUnWgaxy0TJq5eB7_tuzxZEcU=s96-c",
+      "agentName":"Sudjida Lufz"
+    },
+    {
+      "propertyId": "6561baafdf537486f771a0e5",
+      "userEmail": "benjamin.smith@example.com",
+      "reviewStar": 4.2,
+      "reviewDescription": "Had a wonderful stay. The property was clean and well-maintained.",
+      "reviewTime": "2023-11-23T14:45:00Z",
+      "propertyTitle":"https://i.ibb.co/PGSmmh8/house-1.jpg",
+      "ReviewerName":"Benjamin Smith",
+      "ReviewerImage":"https://i.ibb.co/4f8M1Rg/contact-man.png",
+      "agentName":"Sudjida Lufz"
+    },
+    {
+      "propertyId": "6561baafdf537486f771a0e6",
+      "userEmail": "saadsamit64@gmail.com",
+      "reviewStar": 3.5,
+      "reviewDescription": "Decent property but needs some improvements.",
+      "reviewTime": "2023-11-22T11:20:00Z",
+      "propertyTitle":"Charming Suburban Home",
+      "ReviewerName":"Samit Intesar",
+      "ReviewerImage":"https://lh3.googleusercontent.com/a/ACg8ocIh3VgknWgw5HpmZd7i74OUnWgaxy0TJq5eB7_tuzxZEcU=s96-c",
+      "agentName":"Christopher Davis"
+    },
+    {
+      "propertyId": "6561baafdf537486f771a0e6",
+      "userEmail": "lucas.johnson@example.com",
+      "reviewStar": 4.9,
+      "reviewDescription": "Exceeded expectations. Would highly recommend!",
+      "reviewTime": "2023-11-21T17:10:00Z",
+      "propertyTitle":"Charming Suburban Home",
+      "ReviewerName":"Lucas Johnson",
+      "ReviewerImage":"https://i.ibb.co/d7RdGLj/team-1.jpg",
+      "agentName":"Christopher Davis"
+    },
+    {
+      "propertyId": "6561baafdf537486f771a0e7",
+      "userEmail": "benjamin.smith@example.com",
+      "reviewStar": 4.0,
+      "reviewDescription": "Good property for the price. Had a comfortable stay.",
+      "reviewTime": "2023-11-20T08:00:00Z",
+      "propertyTitle":"Luxurious Hilltop Villa",
+      "ReviewerName":"Benjamin Smith",
+      "ReviewerImage":"https://i.ibb.co/4f8M1Rg/contact-man.png",
+      "agentName":"Sudjida Lufz"
+    },
+    {
+      "propertyId": "6561baafdf537486f771a0e7",
+      "userEmail": "alexander.brown@example.com",
+      "reviewStar": 4.6,
+      "reviewDescription": "Lovely property with excellent amenities!",
+      "reviewTime": "2023-11-19T13:15:00Z",
+      "propertyTitle":"Luxurious Hilltop Villa",
+      "ReviewerName":"Alexander Brown",
+      "ReviewerImage":"https://i.ibb.co/3kycPQH/avater-1.jpg",
+      "agentName":"Sudjida Lufz"
+    },
+    {
+      "propertyId": "6561baafdf537486f771a0e8",
+      "userEmail": "lucas.johnson@example.com",
+      "reviewStar": 3.2,
+      "reviewDescription": "Average property. Needs some upgrades.",
+      "reviewTime": "2023-11-18T16:50:00Z",
+      "propertyTitle":"Coastal Retreat",
+      "ReviewerName":"Lucas Johnson",
+      "ReviewerImage":"https://i.ibb.co/d7RdGLj/team-1.jpg",
+      "agentName":"Michael Thompson"
+    },
+    {
+      "propertyId": "6561baafdf537486f771a0e8",
+      "userEmail": "alexander.brown@example.com",
+      "reviewStar": 4.7,
+      "reviewDescription": "Fantastic experience! Would definitely come back.",
+      "reviewTime": "2023-11-17T10:05:00Z",
+      "propertyTitle":"Coastal Retreat",
+      "ReviewerName":"Alexander Brown",
+      "ReviewerImage":"https://i.ibb.co/3kycPQH/avater-1.jpg",
+      "agentName":"Michael Thompson"
+    }
+  ]
+  

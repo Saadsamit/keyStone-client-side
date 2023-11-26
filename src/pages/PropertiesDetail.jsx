@@ -13,8 +13,6 @@ const PropertiesDetail = () => {
   const closeModal = ()=> {
     setIsOpen(false)
   }
-  // const date = new Date()
-  // console.log(date);
   const openModal = ()=> {
     setIsOpen(true)
   }
@@ -69,7 +67,7 @@ const PropertiesDetail = () => {
                     </button>
                   </div>
       </MyModal>
-      <ReviewSecion/>
+      <ReviewSecion id={data?._id} title={data?.property?.title} AgentName={data?.agent?.image} isTrue={true}/>
     </Container>
   );
 };
