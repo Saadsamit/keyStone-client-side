@@ -6,8 +6,9 @@ import { imageUploder } from "../api/imageUploder/imageUploder";
 import { myAuthProvider } from "../provider/AuthProvider";
 import Container from "../components/Container";
 import signUpImg from "../assets/sgnUp.jpg";
+import Spiner from "../components/Spiner";
 const Registration = () => {
-  const { createUser, updateUser, logoutUser } = useContext(myAuthProvider);
+  const { createUser, updateUser, logoutUser,loading,isLoading } = useContext(myAuthProvider);
   const [passwordShow, setPasswordShow] = useState(true);
   const { register, reset, handleSubmit } = useForm();
   const navigate = useNavigate()
@@ -19,12 +20,14 @@ const Registration = () => {
     const imgData = await imageUploder(imageFile);
     createUser(email, password).then(() => {
       updateUser(name, imgData.data.display_url).then(() => {
+        reset();
         logoutUser().then(()=>{
           navigate('/login')
         })
       });
-    });
-    reset();
+    }).catch(()=>{
+      isLoading(false)    
+    })
   };
   return (
     <Container data={"pb-10"}>
@@ -103,7 +106,7 @@ const Registration = () => {
           </div>
           <div className="form-control mt-6">
             <button className="btnStyle">
-              Registration
+              {loading ? <Spiner isTrue={true}/> :'Registration'}
             </button>
           </div>
           <p>

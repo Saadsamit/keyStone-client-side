@@ -52,7 +52,7 @@ const AuthProvider = ({children}) => {
             unSubscribe()
         }
     },[axiosPrivate])
-    const contextData = {user,loading,createUser,updateUser,loginUser,logoutUser,googleLoginUser}
+    const contextData = {user,loading,createUser,updateUser,loginUser,logoutUser,googleLoginUser,isLoading}
     return (
         <myAuthProvider.Provider value={contextData}>
             {children}

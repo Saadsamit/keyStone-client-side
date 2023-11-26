@@ -7,8 +7,9 @@ import { useForm } from "react-hook-form";
 import Container from "../components/Container";
 import loginImg from "../assets/login.jpg";
 import NewUser from "../api/newUser";
+import Spiner from "../components/Spiner";
 const Login = () => {
-  const { googleLoginUser, loginUser } = useContext(myAuthProvider);
+  const { googleLoginUser, loginUser,loading,isLoading } = useContext(myAuthProvider);
   const [passwordShow, setPasswordShow] = useState(true);
   const { register, reset, handleSubmit } = useForm();
   const location = useLocation()
@@ -24,11 +25,14 @@ const Login = () => {
     const email = data.email;
     const password = data.password;
     loginUser(email, password).then(res=>{
+      reset();
       NewUser(res.user).then(()=>{
         location.state ? navigate(location.state) : navigate('/')
+
       })
+    }).catch(()=>{
+      isLoading(false)    
     })
-    reset();
   };
   return (
     <Container data={"pb-10"}>
@@ -99,7 +103,9 @@ const Login = () => {
             </label>
           </div>
           <div className="form-control mt-6">
-            <button className="btnStyle">Login</button>
+            <button className="btnStyle">
+              {loading ? <Spiner isTrue={true}/> :'Login'}
+              </button>
           </div>
           <p>
             {"If You Don't Have Account"}{" "}

@@ -1,31 +1,34 @@
-import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { Navigate, useParams } from "react-router-dom";
 import Container from "./../components/Container";
 import MyModal from "../components/MyModal";
 import { useState } from "react";
 import ReviewSecion from "../components/ReviewSecion";
+import Spiner from "../components/Spiner";
+import Detail from "../api/PropetiesDetail/Detail";
+
 const PropertiesDetail = () => {
   const { id } = useParams();
-  const axios = useAxiosPrivate();
   let [isOpen, setIsOpen] = useState(false)
-
+  const [data,isPending] = Detail(id)
   const closeModal = ()=> {
     setIsOpen(false)
   }
-
+  // const date = new Date()
+  // console.log(date);
   const openModal = ()=> {
     setIsOpen(true)
   }
 
-  const detailData = async () => {
-    const { data } = await axios(`/Properties/${id}`);
-    return data;
-  };
-  const { data = {} } = useQuery({
-    queryKey: ["Detail-Data"],
-    queryFn: detailData,
-  });
+  if(isPending){
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Spiner isTrue={false} />
+      </div>
+    )
+  }
+  if(data.error){
+    return <Navigate to={'/'}/>
+  }
   return (
     <Container data={"py-10 space-y-4"}>
       <div className="h-[70vh] overflow-hidden rounded-xl">

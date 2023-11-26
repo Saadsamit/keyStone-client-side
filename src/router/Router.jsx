@@ -6,6 +6,8 @@ import PropertiesDetail from "../pages/PropertiesDetail";
 import Registration from "../pages/Registration";
 import Login from "./../pages/Login";
 import ErrorPage from "../pages/ErrorPage";
+import IsExistUser from "./IsExistUser";
+import PriveteRoute from "./PriveteRoute";
 
 const Router = createBrowserRouter([
   {
@@ -19,20 +21,20 @@ const Router = createBrowserRouter([
       },
       {
         path: "All-properties",
-        element: <AllProperties />,
+        element: <PriveteRoute><AllProperties /></PriveteRoute>,
       },
       {
         path: "Properties-Detail/:id",
-        element: <PropertiesDetail />,
+        element: <PriveteRoute><PropertiesDetail /></PriveteRoute>,
       },
       {
         path: "Registration",
-        element: <Registration />,
+        element: <IsExistUser><Registration /></IsExistUser>,
         index: true,
       },
       {
         path: "login",
-        element: <Login />,
+        element: <IsExistUser><Login /></IsExistUser>,
       },
     ],
   },
