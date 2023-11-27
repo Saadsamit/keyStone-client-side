@@ -37,7 +37,7 @@ const AllProperties = () => {
       ) : (
         <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
           {allData.map((data, idx) => (
-            <PropertiesCard key={idx} data={data} />
+          <PropertiesCard key={idx} data={data} />
           ))}
         </div>
       )}

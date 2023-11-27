@@ -8,6 +8,7 @@ import { myAuthProvider } from "../../provider/AuthProvider";
 import { imageUploder } from "../../api/imageUploder/imageUploder";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import toast from "react-hot-toast";
+import Loading from "../../components/Loading";
 const MyProfile = () => {
   const axios = useAxiosPrivate();
   const [user, isPending, refetch] = GetUser();
@@ -21,11 +22,7 @@ const MyProfile = () => {
     setIsOpen(true);
   };
   if (isPending) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <Spiner isTrue={false} />
-      </div>
-    );
+    return <Loading />;
   }
   const onSubmit = async (data) => {
     isLoading(true);
