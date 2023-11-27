@@ -7,28 +7,59 @@ import { myAuthProvider } from "../provider/AuthProvider";
 import Container from "../components/Container";
 import signUpImg from "../assets/sgnUp.jpg";
 import Spiner from "../components/Spiner";
+import toast from "react-hot-toast";
 const Registration = () => {
-  const { createUser, updateUser, logoutUser,loading,isLoading } = useContext(myAuthProvider);
+  const { createUser, updateUser, logoutUser, loading, isLoading } =
+    useContext(myAuthProvider);
   const [passwordShow, setPasswordShow] = useState(true);
   const { register, reset, handleSubmit } = useForm();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const onSubmit = async (data) => {
     const imageFile = { image: data.photo_Url[0] };
     const name = data.name;
     const email = data.email;
     const password = data.password;
     const imgData = await imageUploder(imageFile);
-    createUser(email, password).then(() => {
-      updateUser(name, imgData.data.display_url).then(() => {
-        reset();
-        logoutUser().then(()=>{
-          navigate('/login')
-        })
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters");
+      return;
+    } else if (!/[A-Z]/.test(password)) {
+      toast.error("Password must be at least 1 capital letter");
+      return;
+    } else if (!/[!\@\#\$\%\^\&\*\)\(\+\=\.\_\-]/.test(password)) {
+      toast.error("Password must be at least 1 special character");
+      return;
+    }
+    createUser(email, password)
+      .then(() => {
+        updateUser(name, imgData.data.display_url).then(() => {
+          reset();
+          logoutUser().then(() => {
+            navigate("/login");
+            toast.success("Registration Successfully ");
+          });
+        });
+      })
+      .catch(() => {
+        isLoading(false);
+        toast.error("fail to Registration");
       });
-    }).catch(()=>{
-      isLoading(false)    
-    })
   };
+  const handleChange = (e) => {
+    // if (password.length < 6) {
+    //   "Password must be at least 6 characters"
+    //   return;
+    // } else if (!/[A-Z]/.test(password)) {
+    //   "Password must be at least 1 capital letter"
+    //   return;
+    // } else if (!/[!\@\#\$\%\^\&\*\)\(\+\=\.\_\-]/.test(password)) {
+    //   "Password must be at least 1 special character"
+    //   return;
+    // }
+    console.log('kj');
+    console.log(e.target.value);
+  };
+
   return (
     <Container data={"pb-10"}>
       <h1 className="text-[#1F8A70] text-center capitalize py-6 font-bold text-4xl">
@@ -92,6 +123,7 @@ const Registration = () => {
                 type={passwordShow ? "password" : "text"}
                 name="password"
                 id="password"
+                onChange={handleChange}
                 placeholder="Password"
                 className="input input-bordered border-[#1F8A70] focus:outline-[#1F8A70] w-full"
                 {...register("password", { required: true })}
@@ -106,7 +138,7 @@ const Registration = () => {
           </div>
           <div className="form-control mt-6">
             <button className="btnStyle">
-              {loading ? <Spiner isTrue={true}/> :'Registration'}
+              {loading ? <Spiner isTrue={true} /> : "Registration"}
             </button>
           </div>
           <p>

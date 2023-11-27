@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { CgProfile } from "react-icons/cg";
 import { myAuthProvider } from "../provider/AuthProvider";
 import useRole from "./../api/useRole";
+import toast from "react-hot-toast";
 const HeaderNav = () => {
   const location = useLocation();
   const { user, logoutUser, loading } = useContext(myAuthProvider);
@@ -18,7 +19,11 @@ const HeaderNav = () => {
       ? "/Dashboard/My-added-properties"
       : "/Dashboard/Wishlist");
   const handleLogout = () => {
-    logoutUser();
+    logoutUser().then(()=>{
+      toast.success("logout Successfully ");
+    }).catch(() => {
+          toast.error("fail to logout");
+        });
   };
   const links = (
     <>

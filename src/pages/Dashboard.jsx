@@ -8,8 +8,18 @@ import { useContext } from "react";
 import { myAuthProvider } from "../provider/AuthProvider";
 import AgentNavLink from "../components/AgentNavLink";
 import AdminNavLink from "../components/AdminNavLink";
+import toast from "react-hot-toast";
 const Dashboard = () => {
   const { logoutUser } = useContext(myAuthProvider);
+  const handleLogout = () => {
+    logoutUser()
+      .then(() => {
+        toast.success("logout Successfully ");
+      })
+      .catch(() => {
+        toast.error("fail to logout");
+      });
+  };
   const client = useRole("client");
   const agent = useRole("agent");
   const admin = useRole("admin");
@@ -17,7 +27,10 @@ const Dashboard = () => {
     <div id="navBar" className="drawer md:drawer-open">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
-      <label htmlFor="my-drawer" className="btn btn-ghost sm:m-5 m-2 md:hidden">
+        <label
+          htmlFor="my-drawer"
+          className="btn btn-ghost sm:m-5 m-2 md:hidden"
+        >
           <FiMenu className="text-3xl text-[#1F8A70]" />
         </label>
         <Outlet />
@@ -54,7 +67,7 @@ const Dashboard = () => {
               </NavLink>
             </li>
           </div>
-          <button onClick={logoutUser} className="btnStyle">
+          <button onClick={handleLogout} className="btnStyle">
             logout
           </button>
         </ul>

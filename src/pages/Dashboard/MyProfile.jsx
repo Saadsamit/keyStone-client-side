@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { myAuthProvider } from "../../provider/AuthProvider";
 import { imageUploder } from "../../api/imageUploder/imageUploder";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import toast from "react-hot-toast";
 const MyProfile = () => {
   const axios = useAxiosPrivate();
   const [user, isPending, refetch] = GetUser();
@@ -27,7 +28,7 @@ const MyProfile = () => {
     );
   }
   const onSubmit = async (data) => {
-    // isLoading(true)
+    isLoading(true);
     const imageFile = { image: data.photo_Url[0] };
     const name = data.name;
     if (imageFile.image) {
@@ -38,10 +39,13 @@ const MyProfile = () => {
           axios.put(`/updateUser/${user?.email}`, UpdateData).then((res) => {
             refetch();
             isLoading(false);
-            console.log(res.data);
+            if (res.data.modifiedCount > 0) {
+              toast.success("Update Successfully ");
+            }
           });
         })
         .catch(() => {
+          toast.error("Update fail");
           isLoading(false);
         });
     } else {
@@ -51,11 +55,13 @@ const MyProfile = () => {
           axios.put(`/updateUser/${user?.email}`, UpdateData).then((res) => {
             refetch();
             isLoading(false);
-            console.log(res.data);
-            // modifiedCount
+            if (res.data.modifiedCount > 0) {
+              toast.success("Update Successfully ");
+            }
           });
         })
         .catch(() => {
+          toast.error("Update fail");
           isLoading(false);
         });
     }

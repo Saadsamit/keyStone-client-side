@@ -8,31 +8,51 @@ import Container from "../components/Container";
 import loginImg from "../assets/login.jpg";
 import NewUser from "../api/newUser";
 import Spiner from "../components/Spiner";
+import toast from "react-hot-toast";
 const Login = () => {
-  const { googleLoginUser, loginUser,loading,isLoading } = useContext(myAuthProvider);
+  const { googleLoginUser, loginUser, loading, isLoading } =
+    useContext(myAuthProvider);
   const [passwordShow, setPasswordShow] = useState(true);
   const { register, reset, handleSubmit } = useForm();
-  const location = useLocation()
-  const navigate = useNavigate()
+  const location = useLocation();
+  const navigate = useNavigate();
   const handleGoogle = () => {
-    googleLoginUser().then(res=>{
-      NewUser(res.user).then(()=>{
-        location.state ? navigate(location.state) : navigate('/')
+    googleLoginUser()
+      .then((res) => {
+        NewUser(res.user).then(() => {
+          location.state ? navigate(location.state) : navigate("/");
+        });
       })
-    });
+      .then(() => {
+        toast.success("login Successfully ");
+      })
+      .catch(() => {
+        toast.error("fail to login");
+      });
   };
   const onSubmit = (data) => {
     const email = data.email;
     const password = data.password;
-    loginUser(email, password).then(res=>{
-      reset();
-      NewUser(res.user).then(()=>{
-        location.state ? navigate(location.state) : navigate('/')
-
+    loginUser(email, password)
+      .then((res) => {
+        reset();
+        NewUser(res.user).then(() => {
+          location.state ? navigate(location.state) : navigate("/");
+        });
       })
-    }).catch(()=>{
-      isLoading(false)    
-    })
+      .then(() => {
+        toast.success("login Successfully ");
+      })
+      .catch((error) => {
+        isLoading(false);
+        const errorMessage = error?.message
+          ?.replace("Firebase: Error (", "")
+          ?.replace(")", "");
+        if (errorMessage.includes("auth/invalid-login-credentials.")) {
+          return toast.error(" Email/Password doesn't match");
+        }
+        toast.error(errorMessage);
+      });
   };
   return (
     <Container data={"pb-10"}>
@@ -104,8 +124,8 @@ const Login = () => {
           </div>
           <div className="form-control mt-6">
             <button className="btnStyle">
-              {loading ? <Spiner isTrue={true}/> :'Login'}
-              </button>
+              {loading ? <Spiner isTrue={true} /> : "Login"}
+            </button>
           </div>
           <p>
             {"If You Don't Have Account"}{" "}

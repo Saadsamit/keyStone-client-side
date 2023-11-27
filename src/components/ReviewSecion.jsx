@@ -10,6 +10,7 @@ import GetReviewData from "../api/getReviewData";
 import { useForm } from "react-hook-form";
 import { myAuthProvider } from "./../provider/AuthProvider";
 import useRole from "../api/useRole";
+import toast from "react-hot-toast";
 const ReviewSecion = ({ id, title, AgentName, isTrue }) => {
   const axios = useAxiosPrivate();
   const { user } = useContext(myAuthProvider);
@@ -45,8 +46,11 @@ const ReviewSecion = ({ id, title, AgentName, isTrue }) => {
     axios.post("/post-review", reviewData).then(() => {
       reset();
       setIsShow(false);
+      toast.success("Review add Successfully ");
       refetch();
       setIsDisabled(false);
+    }).catch(() => {
+      toast.error("fail to Review");
     });
   };
   if (isPending) {
