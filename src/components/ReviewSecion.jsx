@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import MyRating from "./MyRating";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import PropTypes from "prop-types";
@@ -23,6 +23,12 @@ const ReviewSecion = ({ id, title, AgentName, isTrue }) => {
   const handleRating = (value) => {
     setRating(value);
   };
+  const reStart = ()=>{
+    refetch()
+  }
+  useEffect(()=>{
+    reStart()
+  },[reStart])
   const onSubmit = (data) => {
     setIsDisabled(true);
     const propertyId = id;
@@ -43,15 +49,18 @@ const ReviewSecion = ({ id, title, AgentName, isTrue }) => {
       reviewerImage,
       agentName,
     };
-    axios.post("/post-review", reviewData).then(() => {
-      reset();
-      setIsShow(false);
-      toast.success("Review add Successfully ");
-      refetch();
-      setIsDisabled(false);
-    }).catch(() => {
-      toast.error("fail to Review");
-    });
+    axios
+      .post("/post-review", reviewData)
+      .then(() => {
+        reset();
+        setIsShow(false);
+        toast.success("Review add Successfully ");
+        refetch();
+        setIsDisabled(false);
+      })
+      .catch(() => {
+        toast.error("fail to Review");
+      });
   };
   if (isPending) {
     return <LoadingCards />;
@@ -86,7 +95,7 @@ const ReviewSecion = ({ id, title, AgentName, isTrue }) => {
                 {data.map((reviewData) => (
                   <SwiperSlide key={reviewData?._id}>
                     {" "}
-                    <ReviewCard reviewData={reviewData} />
+                    <ReviewCard ForMyReview={false} reviewData={reviewData} />
                   </SwiperSlide>
                 ))}
               </Slider>

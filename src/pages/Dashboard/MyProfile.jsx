@@ -67,7 +67,8 @@ const MyProfile = () => {
     }
   };
   return (
-    <div className="flex justify-center sm:items-center w-full sm:min-h-screen">
+    <div className="flex flex-col text-center justify-center sm:items-center w-full sm:min-h-screen">
+      <h2 className="text-xl py-5 text-[#1F8A70]">My Profile</h2>
       <div className="card sm:w-96 bg-[#D7FBE8] shadow-xl">
         <div className="card-body text-[#1F8A70]">
           <div className="flex justify-end">

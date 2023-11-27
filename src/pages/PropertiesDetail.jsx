@@ -75,7 +75,7 @@ const PropertiesDetail = () => {
       <ReviewSecion
         id={data?._id}
         title={data?.property?.title}
-        AgentName={data?.agent?.image}
+        AgentName={data?.agent?.name}
         isTrue={true}
       />
     </Container>

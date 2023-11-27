@@ -9,7 +9,7 @@ const GetReviewData = (id, isTrue) => {
   const {
     data = [],
     isPending,
-    refetch,
+    refetch
   } = useQuery({
     queryKey: ["getReview"],
     queryFn: getReview,

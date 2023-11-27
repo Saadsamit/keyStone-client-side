@@ -11,7 +11,7 @@ const useRole = (Role) => {
     return data;
   };
   const { data, isPending } = useQuery({
-    queryKey: ["role"],
+    queryKey: ["role",user?.email],
     queryFn: findData,
     enabled: !loading,
   });

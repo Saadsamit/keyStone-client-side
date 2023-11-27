@@ -11,7 +11,7 @@ const GetUser = ()=>{
         return data
     }
     const {data={},isPending,refetch} = useQuery({
-        queryKey: ['getUser'],
+        queryKey: ['getUser',user?.email],
         queryFn: getUser,
         enabled: !loaging
     })
