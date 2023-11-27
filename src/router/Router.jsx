@@ -9,7 +9,7 @@ import ErrorPage from "../pages/ErrorPage";
 import IsExistUser from "./IsExistUser";
 import PriveteRoute from "./PriveteRoute";
 import Dashboard from "../pages/Dashboard";
-import MyProfile from './../pages/Dashboard/Client/MyProfile';
+import MyProfile from './../pages/Dashboard/MyProfile';
 import MyReviews from './../pages/Dashboard/Client/MyReviews';
 import MyProperty from './../pages/Dashboard/Client/MyProperty';
 import Wishlist from './../pages/Dashboard/Client/Wishlist';
@@ -56,6 +56,7 @@ const Router = createBrowserRouter([
   {
     path: "/Dashboard",
     element: <PriveteRoute><Dashboard/></PriveteRoute>,
+    errorElement: <ErrorPage/>,
     children:[
       {
         path: "Wishlist",

@@ -3,10 +3,10 @@ import { myAuthProvider } from "../provider/AuthProvider";
 import { Navigate, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import Spiner from "../components/Spiner";
-import useRole from "../api/getRole";
+import useRole from "../api/useRole";
 const AgentRoute = ({ children }) => {
-    const { user, loading } = useContext(myAuthProvider);
-    const [role,isPending] = useRole('agent')
+  const { user, loading } = useContext(myAuthProvider);
+  const [role, isPending] = useRole("agent");
   const location = useLocation();
   if (loading || isPending) {
     return (

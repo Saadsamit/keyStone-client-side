@@ -4,17 +4,19 @@ import { MdHomeWork } from "react-icons/md";
 import { useContext } from "react";
 import { CgProfile } from "react-icons/cg";
 import { myAuthProvider } from "../provider/AuthProvider";
-import useRole from "./../api/getRole";
+import useRole from "./../api/useRole";
 const HeaderNav = () => {
   const location = useLocation();
-  const { user, logoutUser } = useContext(myAuthProvider);
+  const { user, logoutUser, loading } = useContext(myAuthProvider);
   const agent = useRole("agent");
   const admin = useRole("admin");
-  const Dashboard = admin[0]
-    ? "/Dashboard/Manage-Properties"
-    : agent[0]
-    ? "/Dashboard/My-added-properties"
-    : "/Dashboard/Wishlist"
+  const Dashboard =
+    (!loading || !agent[1] || !admin[1]) &&
+    (admin[0]
+      ? "/Dashboard/Manage-Properties"
+      : agent[0]
+      ? "/Dashboard/My-added-properties"
+      : "/Dashboard/Wishlist");
   const handleLogout = () => {
     logoutUser();
   };
@@ -34,7 +36,10 @@ const HeaderNav = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to={Dashboard} className={"text-[#0B666A] font-semibold"}>
+        <NavLink
+          to={Dashboard || "/Dashboard"}
+          className={"text-[#0B666A] font-semibold"}
+        >
           Dashboard
         </NavLink>
       </li>

@@ -9,7 +9,7 @@ import { SwiperSlide } from "swiper/react";
 import GetReviewData from "../api/getReviewData";
 import { useForm } from "react-hook-form";
 import { myAuthProvider } from "./../provider/AuthProvider";
-import useRole from "../api/getRole";
+import useRole from "../api/useRole";
 const ReviewSecion = ({ id, title, AgentName, isTrue }) => {
   const axios = useAxiosPrivate();
   const { user } = useContext(myAuthProvider);
