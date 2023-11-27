@@ -20,6 +20,9 @@ import RequestedProperties from "../pages/Dashboard/Agent/RequestedProperties";
 import ManageProperties from "../pages/Dashboard/Admin/ManageProperties";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import ManageReviews from "../pages/Dashboard/Admin/ManageReviews";
+import ClientRoute from "./ClientRoute";
+import AgentRoute from "./AgentRoute";
+import AdminRoute from "./AdminRoute";
 
 const Router = createBrowserRouter([
   {
@@ -56,15 +59,15 @@ const Router = createBrowserRouter([
     children:[
       {
         path: "Wishlist",
-        element: <PriveteRoute><Wishlist /></PriveteRoute>,
+        element: <ClientRoute><Wishlist /></ClientRoute>,
       },
       {
         path: "Property-bought",
-        element: <PriveteRoute><MyProperty /></PriveteRoute>,
+        element: <ClientRoute><MyProperty /></ClientRoute>,
       },
       {
         path: "My-reviews",
-        element: <PriveteRoute><MyReviews /></PriveteRoute>,
+        element: <ClientRoute><MyReviews /></ClientRoute>,
       },
       {
         path: "My-Profile",
@@ -72,31 +75,31 @@ const Router = createBrowserRouter([
       },
       {
         path: "My-added-properties",
-        element: <PriveteRoute><MyAddedProperties /></PriveteRoute>,
+        element: <AgentRoute><MyAddedProperties /></AgentRoute>,
       },
       {
         path: "add-new-propertie",
-        element: <PriveteRoute><AddNewPropertie /></PriveteRoute>,
+        element: <AgentRoute><AddNewPropertie /></AgentRoute>,
       },
       {
         path: "My-sold-properties",
-        element: <PriveteRoute><MySoldProperties /></PriveteRoute>,
+        element: <AgentRoute><MySoldProperties /></AgentRoute>,
       },
       {
         path: "Requested-properties",
-        element: <PriveteRoute><RequestedProperties /></PriveteRoute>,
+        element: <AgentRoute><RequestedProperties /></AgentRoute>,
       },
       {
         path: "Manage-Properties",
-        element: <PriveteRoute><ManageProperties /></PriveteRoute>,
+        element: <AdminRoute><ManageProperties /></AdminRoute>,
       },
       {
         path: "Manage-Users",
-        element: <PriveteRoute><ManageUsers /></PriveteRoute>,
+        element: <AdminRoute><ManageUsers /></AdminRoute>,
       },
       {
         path: "Manage-reviews",
-        element: <PriveteRoute><ManageReviews /></PriveteRoute>,
+        element: <AdminRoute><ManageReviews /></AdminRoute>,
       },
     ]
   }
