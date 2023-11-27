@@ -5,9 +5,6 @@
 h1,h2,h3,h4,h5,h6,a,button{
     @apply font-Ubuntu
 }
-/* #navBar ul li a{
-    @apply 
-} */
 #navBar ul li a.active{
     @apply !text-white bg-[#1F8A70] hover:!text-white hover:!bg-[#00425A] font-semibold
 }

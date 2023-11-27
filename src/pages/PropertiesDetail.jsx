@@ -5,10 +5,12 @@ import { useState } from "react";
 import ReviewSecion from "../components/ReviewSecion";
 import Spiner from "../components/Spiner";
 import Detail from "../api/PropetiesDetail/Detail";
+import useRole from "../api/getRole";
 
 const PropertiesDetail = () => {
   const { id } = useParams();
   let [isOpen, setIsOpen] = useState(false)
+  const [role] = useRole('client')
   const [data,isPending] = Detail(id)
   const closeModal = ()=> {
     setIsOpen(false)
@@ -44,7 +46,7 @@ const PropertiesDetail = () => {
       </div>
       <p>{data?.property?.details}</p>
       <p>{data?.property?.PriceRange}</p>
-      <button className="btnStyle" onClick={openModal}>Add to wishlist</button>
+      {role && <button className="btnStyle" onClick={openModal}>Add to wishlist</button>}
       <MyModal isOpen={isOpen} closeModal={closeModal} >
       <h3
                     className="text-lg font-medium leading-6 text-gray-900"

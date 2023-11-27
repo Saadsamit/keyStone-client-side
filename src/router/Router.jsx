@@ -8,6 +8,7 @@ import Login from "./../pages/Login";
 import ErrorPage from "../pages/ErrorPage";
 import IsExistUser from "./IsExistUser";
 import PriveteRoute from "./PriveteRoute";
+import Dashboard from "../pages/Dashboard";
 
 const Router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const Router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/Dashboard",
+    element: <PriveteRoute><Dashboard/></PriveteRoute>,
+  }
 ]);
 
 export default Router;

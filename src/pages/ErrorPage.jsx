@@ -9,9 +9,14 @@ const ErrorPage = () => {
                     404
                 </h3>
                 <p className="text-[#00425A] text-2xl fond-bold capitalize">page not found</p>
-                <Link to={'/'} className="btnStyle">
+               <div className="flex gap-3 justify-center items-center sm:flex-row flex-col">
+               <Link to={'/'} className="btnStyle">
                     go to home
                 </Link>
+                <Link to={-1} className="btnStyle">
+                    go back
+                </Link>
+               </div>
             </div>
         </div>
     );
