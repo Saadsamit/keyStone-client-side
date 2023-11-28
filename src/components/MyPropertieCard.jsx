@@ -1,20 +1,16 @@
 import PropTypes from "prop-types";
 import MyModal from "./MyModal";
 import { useState } from "react";
-import {
-  CardElement,
-  useElements,
-  useStripe,
-} from "@stripe/react-stripe-js";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import toast from "react-hot-toast";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 const MyPropertieCard = ({
   data: cardData,
   handleSecret,
   clientSecret,
-  refetch
+  refetch,
 }) => {
-  const axios = useAxiosPrivate()
+  const axios = useAxiosPrivate();
   const [isOpen, setIsOpen] = useState(false);
   const elements = useElements();
   const stripe = useStripe();
@@ -26,41 +22,47 @@ const MyPropertieCard = ({
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!elements || !stripe || !clientSecret){
-      return toast.error('payment fail')
+    if (!elements || !stripe || !clientSecret) {
+      return toast.error("payment fail");
     }
-    const card = elements.getElement(CardElement)
-    if(card === null){
-      return toast.error('payment fail')
+    const card = elements.getElement(CardElement);
+    if (card === null) {
+      return toast.error("payment fail");
     }
-    const {error} = await stripe.createPaymentMethod({
+    const { error } = await stripe.createPaymentMethod({
       type: "card",
-      card
-    })
-    if(error){
-      return toast.error(error.message)
+      card,
+    });
+    if (error) {
+      return toast.error(error.message);
     }
-    const {paymentIntent} = await stripe.confirmCardPayment(clientSecret,{
+    const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: card,
-        billing_details:{
+        billing_details: {
           email: cardData?.userEmail,
-          name: cardData?.userName
-        }
-      }
-    })
-    if(paymentIntent){
-      axios.put(`/update-PropertyBought/${cardData._id}`,{id: paymentIntent.id}).then(()=>{
-        setIsOpen(false)
-        refetch()
-        toast.success('Payment Successfully')
-      })
+          name: cardData?.userName,
+        },
+      },
+    });
+    if (paymentIntent) {
+      axios
+        .put(`/update-PropertyBought/${cardData._id}`, { id: paymentIntent.id })
+        .then(() => {
+          setIsOpen(false);
+          refetch();
+          toast.success("Payment Successfully");
+        });
     }
   };
   return (
     <div className="card bg-base-100 shadow-xl">
       <figure>
-        <img src={cardData.property.image} alt="Shoes" className="w-full h-72" />
+        <img
+          src={cardData.property.image}
+          alt="Shoes"
+          className="w-full h-72"
+        />
       </figure>
       <div className="card-body">
         <div className="avatar cursor-pointer flex items-center gap-2">
@@ -99,27 +101,35 @@ const MyPropertieCard = ({
           </button>
         )}
         <MyModal isOpen={isOpen} closeModal={closeModal}>
-            <form onSubmit={handleSubmit}>
-              <h3>Amount ${cardData?.offerAmount}</h3>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <h3>Amount: ${cardData?.offerAmount}</h3>
             <CardElement
-        options={{
-          style: {
-            base: {
-              fontSize: '16px',
-              color: '#424770',
-              '::placeholder': {
-                color: '#aab7c4',
-              },
-            },
-            invalid: {
-              color: '#9e2146',
-            },
-          },
-        }}
-      />
-      <button type="submit" className="btnStyle" disabled={!stripe || !elements || !clientSecret}>buy</button>
+              options={{
+                style: {
+                  base: {
+                    fontSize: "16px",
+                    color: "#424770",
+                    "::placeholder": {
+                      color: "#aab7c4",
+                    },
+                  },
+                  invalid: {
+                    color: "#9e2146",
+                  },
+                },
+              }}
+            />
 
-            </form>
+            <div className="text-center">
+              <button
+                type="submit"
+                className="btnStyle"
+                disabled={!stripe || !elements || !clientSecret}
+              >
+                buy
+              </button>
+            </div>
+          </form>
         </MyModal>
       </div>
     </div>
@@ -129,7 +139,7 @@ MyPropertieCard.propTypes = {
   data: PropTypes.object,
   handleSecret: PropTypes.func,
   clientSecret: PropTypes.string,
-  refetch: PropTypes.func
+  refetch: PropTypes.func,
 };
 
 export default MyPropertieCard;

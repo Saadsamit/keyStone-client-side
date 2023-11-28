@@ -3,23 +3,22 @@ import { myAuthProvider } from "../provider/AuthProvider";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
 
-const GetMyPropertie = () => {
+const GetSoldPropertie = () => {
   const { user, loaging } = useContext(myAuthProvider);
   const axios = useAxiosPrivate();
-  const getMyPropertie = async () => {
-    const { data } = await axios(`/get-MyProperty/${user?.email}`);
+  const getSoldPropertie = async () => {
+    const { data } = await axios(`/getSoldPropertie/${user?.email}`);
     return data;
   };
   const {
     data = {},
     isPending,
-    refetch,
   } = useQuery({
     queryKey: ["getMyPropertie", user?.email],
-    queryFn: getMyPropertie,
+    queryFn: getSoldPropertie,
     enabled: !loaging,
   });
-  return [data, isPending, refetch];
+  return [data, isPending];
 };
 
-export default GetMyPropertie;
+export default GetSoldPropertie;
