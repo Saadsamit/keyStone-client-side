@@ -5,7 +5,9 @@ import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { myAuthProvider } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
-const PropertiesCard = ({ data:cardData, isTrue, handleDelete }) => {
+import useAxiosPrivate from './../hooks/useAxiosPrivate';
+const PropertiesCard = ({ data:cardData, isTrue, handleDelete,refetch }) => {
+  const axios = useAxiosPrivate()
   const {register,handleSubmit} = useForm()
   const {user} = useContext(myAuthProvider)
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +23,25 @@ const PropertiesCard = ({ data:cardData, isTrue, handleDelete }) => {
     const num2 = parseInt(price[1])
     const offerAmount = parseInt(data.offeramount)
     if(num1 < offerAmount && num2 > offerAmount ){
-      //the post here
+      const wishlistData = {
+        wishlistId: cardData?._id,
+        propertyId: cardData?.propertyId,
+        property: cardData?.property,
+        agent: cardData?.agent,
+        userEmail: user?.email,
+        userName: user?.displayName,
+        userImage: user?.photoURL,
+        offerAmount: offerAmount
+      };
+      axios.post('/post-PropertyBought',wishlistData).then((res)=>{
+        if(res.data.isExist){
+          toast.error("already exist")
+        }
+        if(res.data.deleteWishlist.deletedCount){
+          refetch()
+          toast.success("ofer sent to agent")
+        }
+      })
     }else{
       toast.error(`enter number between ${num1} - ${num2}`)
     }
@@ -189,6 +209,7 @@ PropertiesCard.propTypes = {
   data: PropTypes.object,
   isTrue: PropTypes.bool,
   handleDelete: PropTypes.func,
+  refetch: PropTypes.func
 };
 
 export default PropertiesCard;
