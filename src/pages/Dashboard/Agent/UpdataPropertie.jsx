@@ -1,39 +1,84 @@
-import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { myAuthProvider } from './../../../provider/AuthProvider';
 import { imageUploder } from "../../../api/imageUploder/imageUploder";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import GetAProperties from "../../../api/getAProperties";
+import Loading from "../../../components/Loading";
+import { useState } from "react";
+import Spiner from "../../../components/Spiner";
 
-const AddNewPropertie = () => {
-    const {user} = useContext(myAuthProvider)
-    const navigate = useNavigate()
-    const axios = useAxiosPrivate()
+const UpdatePropertie = () => {
+  const { id } = useParams();
+  const axios = useAxiosPrivate();
+  const [loading, setIsLoading] = useState(false)
+  const [propertie, isPending, refetch] = GetAProperties(id);
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
-  const onSubmit = async(data) => {
+  if (isPending) {
+    return <Loading />;
+  }
+  const price = propertie?.property?.PriceRange.replace(/\$/g, "").split("-");
+  const num1 = parseInt(price[0]);
+  const num2 = parseInt(price[1]);
+
+  const onSubmit = async (data) => {
+    setIsLoading(true)
     const imageFile = { image: data.photo_Url[0] };
-    const imgData = await imageUploder(imageFile);
+    let updateData;
     let PriceRange;
-    if(data.PriceRange2.length > 6 || data.PriceRange1.length > 6){
-        return toast.error('number cannot then 6 character');
+    if (data.PriceRange2.length > 6 || data.PriceRange1.length > 6) {
+      return toast.error("number cannot then 6 character");
     }
-    if(data.PriceRange1 > data.PriceRange2){
-        PriceRange = `$${data.PriceRange2} - $${data.PriceRange1}`
-    }else{
-        PriceRange = `$${data.PriceRange1} - $${data.PriceRange2}`
+    if (data.PriceRange1 > data.PriceRange2) {
+      PriceRange = `$${data.PriceRange2} - $${data.PriceRange1}`;
+    } else {
+      PriceRange = `$${data.PriceRange1} - $${data.PriceRange2}`;
     }
-    const addData = {property: { image:imgData.data.display_url, title:data.title, location:data.location, details:data.details, PriceRange }, agent: { name:user.displayName, image:user.photoURL, email:user.email }}
-    axios.post('/newPropertie',addData).then(()=>{
-        toast.success('Propertie Add Successfully')
-        navigate('/Dashboard/My-added-properties')
-    })
+    if (imageFile.image) {
+      const imgData = await imageUploder(imageFile);
+      updateData = {
+        property: {
+          image: imgData.data.display_url,
+          title: data.title,
+          location: data.location,
+          details: data.details,
+          PriceRange,
+        },
+      };
+      axios.put(`/updateProperties/${id}`,updateData).then(()=>{
+        setIsLoading(false)
+          toast.success('Propertie Update Successfully')
+          refetch()
+          navigate('/Dashboard/My-added-properties')
+      }).catch(()=>{
+        setIsLoading(false)
+        toast.error('fail to update')
+      })
+    } else {
+      updateData = {
+        property: {
+          title: data.title,
+          location: data.location,
+          details: data.details,
+          PriceRange,
+        },
+      };
+      axios.put(`/updateProperties/${id}`,updateData).then(()=>{
+        setIsLoading(false)
+          toast.success('Propertie Update Successfully')
+          refetch()
+          navigate('/Dashboard/My-added-properties')
+      }).catch(()=>{
+        setIsLoading(false)
+        toast.error('fail to update')
+      })
+    }
   };
-  //property: { image, title, location, details, PriceRange }, agent: { name, image, email }
   return (
     <div>
       <h2 className="text-xl py-5 text-[#1F8A70] text-center">
-        Add New Propertie
+        Update Propertie
       </h2>
       <div className="bg-[#D7FBE8] m-5 p-5 rounded-2xl">
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -50,7 +95,7 @@ const AddNewPropertie = () => {
                 id="PhotoURL"
                 placeholder="Photo URL"
                 className="file-input file:bg-[#1F8A70] file:text-[#D7FBE8] file:border-[#1F8A70] focus:outline-[#1F8A70] border-[#1F8A70] file-input-bordered file-input-success w-full"
-                {...register("photo_Url", { required: true })}
+                {...register("photo_Url")}
               />
             </div>
             <div className="form-control">
@@ -63,8 +108,9 @@ const AddNewPropertie = () => {
                 type="text"
                 id="title"
                 placeholder="title"
+                defaultValue={propertie?.property?.title}
                 className="input input-bordered border-[#1F8A70] focus:outline-[#1F8A70]"
-                {...register("title", { required: true })}
+                {...register("title")}
               />
             </div>
             <div className="form-control">
@@ -77,8 +123,9 @@ const AddNewPropertie = () => {
                 type="text"
                 id="location"
                 placeholder="location"
+                defaultValue={propertie?.property?.location}
                 className="input input-bordered border-[#1F8A70] focus:outline-[#1F8A70]"
-                {...register("location", { required: true })}
+                {...register("location")}
               />
             </div>
             <div className="form-control">
@@ -92,47 +139,19 @@ const AddNewPropertie = () => {
                   type="number"
                   id="PriceRange"
                   placeholder="$ Starting price"
+                  defaultValue={num1}
                   className="input input-bordered border-[#1F8A70] w-1/2 focus:outline-[#1F8A70]"
-                  {...register("PriceRange1", { required: true })}
+                  {...register("PriceRange1")}
                 />
                 <p className="text-2xl">-</p>
                 <input
                   type="number"
                   placeholder="$ Ending price"
+                  defaultValue={num2}
                   className="input input-bordered w-1/2 border-[#1F8A70] focus:outline-[#1F8A70]"
-                  {...register("PriceRange2", { required: true })}
+                  {...register("PriceRange2")}
                 />
               </div>
-            </div>
-            <div className="form-control">
-              <label className="label" htmlFor="agentName">
-                <span className="label-text capitalize ps-2 text-[#1F8A70]">
-                  Agent Name
-                </span>
-              </label>
-              <input
-                type="text"
-                id="agentName"
-                defaultValue={user.displayName}
-                placeholder="Agent Name"
-                className="input input-bordered disabled:text-black border-[#1F8A70] focus:outline-[#1F8A70]"
-                {...register("agentName", { required: true, disabled: true })}
-              />
-            </div>
-            <div className="form-control">
-              <label className="label" htmlFor="agentEmail">
-                <span className="label-text capitalize ps-2 text-[#1F8A70]">
-                  Agent Email
-                </span>
-              </label>
-              <input
-                type="text"
-                id="agentEmail"
-                defaultValue={user.email}
-                placeholder="Agent Email"
-                className="input input-bordered disabled:text-black border-[#1F8A70] focus:outline-[#1F8A70]"
-                {...register("agentEmail", { required: true, disabled: true })}
-              />
             </div>
             <div className="form-control sm:col-span-2">
               <label className="label" htmlFor="details">
@@ -143,13 +162,14 @@ const AddNewPropertie = () => {
               <textarea
                 id="details"
                 placeholder="details"
+                defaultValue={propertie?.property?.details}
                 className="input input-bordered border-[#1F8A70] focus:outline-[#1F8A70] min-h-[100px] p-1"
-                {...register("details", { required: true })}
+                {...register("details")}
               ></textarea>
             </div>
           </div>
           <div className="text-center">
-            <button className="btnStyle mt-5">add propertie</button>
+            <button className="btnStyle mt-5">{loading ? <Spiner isTrue={true}/> : 'Update propertie'}</button>
           </div>
         </form>
       </div>
@@ -157,4 +177,4 @@ const AddNewPropertie = () => {
   );
 };
 
-export default AddNewPropertie;
+export default UpdatePropertie;

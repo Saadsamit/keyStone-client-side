@@ -23,6 +23,7 @@ import ManageReviews from "../pages/Dashboard/Admin/ManageReviews";
 import ClientRoute from "./ClientRoute";
 import AgentRoute from "./AgentRoute";
 import AdminRoute from "./AdminRoute";
+import UpdatePropertie from "../pages/Dashboard/Agent/UpdataPropertie";
 
 const Router = createBrowserRouter([
   {
@@ -81,6 +82,10 @@ const Router = createBrowserRouter([
       {
         path: "add-new-propertie",
         element: <AgentRoute><AddNewPropertie /></AgentRoute>,
+      },
+      {
+        path: "update-propertie/:id",
+        element: <AgentRoute><UpdatePropertie /></AgentRoute>,
       },
       {
         path: "My-sold-properties",

@@ -60,7 +60,7 @@ const MyPropertieCard = ({
   return (
     <div className="card bg-base-100 shadow-xl">
       <figure>
-        <img src={cardData.property.image} alt="Shoes" className="w-full" />
+        <img src={cardData.property.image} alt="Shoes" className="w-full h-72" />
       </figure>
       <div className="card-body">
         <div className="avatar cursor-pointer flex items-center gap-2">

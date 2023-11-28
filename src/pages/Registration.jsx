@@ -45,20 +45,6 @@ const Registration = () => {
         toast.error("fail to Registration");
       });
   };
-  const handleChange = (e) => {
-    // if (password.length < 6) {
-    //   "Password must be at least 6 characters"
-    //   return;
-    // } else if (!/[A-Z]/.test(password)) {
-    //   "Password must be at least 1 capital letter"
-    //   return;
-    // } else if (!/[!\@\#\$\%\^\&\*\)\(\+\=\.\_\-]/.test(password)) {
-    //   "Password must be at least 1 special character"
-    //   return;
-    // }
-    console.log('kj');
-    console.log(e.target.value);
-  };
 
   return (
     <Container data={"pb-10"}>
@@ -123,7 +109,6 @@ const Registration = () => {
                 type={passwordShow ? "password" : "text"}
                 name="password"
                 id="password"
-                onChange={handleChange}
                 placeholder="Password"
                 className="input input-bordered border-[#1F8A70] focus:outline-[#1F8A70] w-full"
                 {...register("password", { required: true })}
