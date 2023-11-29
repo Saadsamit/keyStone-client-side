@@ -24,6 +24,7 @@ import ClientRoute from "./ClientRoute";
 import AgentRoute from "./AgentRoute";
 import AdminRoute from "./AdminRoute";
 import UpdatePropertie from "../pages/Dashboard/Agent/UpdataPropertie";
+import AdvertiseProperty from "../pages/Dashboard/Admin/AdvertiseProperty";
 
 const Router = createBrowserRouter([
   {
@@ -102,6 +103,10 @@ const Router = createBrowserRouter([
       {
         path: "Manage-Users",
         element: <AdminRoute><ManageUsers /></AdminRoute>,
+      },
+      {
+        path: "Advertise-property",
+        element: <AdminRoute><AdvertiseProperty /></AdminRoute>,
       },
       {
         path: "Manage-reviews",

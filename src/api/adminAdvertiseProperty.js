@@ -1,9 +1,9 @@
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
-const AllProperties = (search)=>{
+const AdminAdvertiseProperty = ()=>{
     const axios = useAxiosPrivate();
-    const properties = async () => {
-        const { data } = await axios(`/Properties?search=${search}`);
+    const AdvertiseProperty = async () => {
+        const { data } = await axios('/adminAdvertiseProperty');
         return data;
       };
       const {
@@ -11,9 +11,9 @@ const AllProperties = (search)=>{
         refetch,
         isPending,
       } = useQuery({
-        queryKey: ["properties"],
-        queryFn: properties,
+        queryKey: ["AdvertiseProperty"],
+        queryFn: AdvertiseProperty,
       });
       return [data,refetch,isPending]
 }
-export default AllProperties
+export default AdminAdvertiseProperty

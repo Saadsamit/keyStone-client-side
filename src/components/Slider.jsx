@@ -4,7 +4,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Autoplay,Navigation } from 'swiper/modules';
-const Slider = ({children}) => {
+const Slider = ({children,isTrue}) => {
     return (
         <Swiper
         slidesPerView={1}
@@ -17,12 +17,12 @@ const Slider = ({children}) => {
             delay: 1500,
             disableOnInteraction: false,
           }}
-        breakpoints={{
+          breakpoints={{
             768:{
                 slidesPerView:2
             }
         }}
-        navigation={true}
+        navigation={!isTrue}
         modules={[Navigation,Autoplay]}
         className="mySwiper"
       >
@@ -31,6 +31,7 @@ const Slider = ({children}) => {
     );
 };
 Slider.propTypes={
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
+    isTrue: PropTypes.bool
 }
 export default Slider;

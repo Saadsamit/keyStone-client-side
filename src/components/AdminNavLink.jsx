@@ -14,6 +14,14 @@ const AdminNavLink = () => {
         </li>
         <li>
           <NavLink
+            to={"/Dashboard/Advertise-property"}
+            className={"text-xl flex justify-center capitalize"}
+          >
+            Advertise Property
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
             to={"/Dashboard/Manage-Users"}
             className={"text-xl flex justify-center capitalize"}
           >
