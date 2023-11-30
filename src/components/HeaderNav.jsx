@@ -11,6 +11,7 @@ const HeaderNav = () => {
   const { user, logoutUser, loading } = useContext(myAuthProvider);
   const agent = useRole("agent");
   const admin = useRole("admin");
+  const fraud = useRole("fraud");
   const Dashboard =
     (!loading || !agent[1] || !admin[1]) &&
     (admin[0]
@@ -25,6 +26,15 @@ const HeaderNav = () => {
           toast.error("fail to logout");
         });
   };
+  console.log();
+  const handleClick = ()=>{ 
+    if(!fraud[0]){
+      return
+  }
+  else{
+    toast.error("you can't use Dashboard")
+  }
+  }
   const links = (
     <>
       <li>
@@ -42,6 +52,7 @@ const HeaderNav = () => {
       </li>
       <li>
         <NavLink
+          onClick={handleClick}
           to={Dashboard || "/Dashboard"}
           className={"text-[#0B666A] font-semibold"}
         >

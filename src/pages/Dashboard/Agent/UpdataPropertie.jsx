@@ -169,7 +169,7 @@ const UpdatePropertie = () => {
             </div>
           </div>
           <div className="text-center">
-            <button className="btnStyle mt-5">{loading ? <Spiner isTrue={true}/> : 'Update propertie'}</button>
+            <button className="btnStyle mt-5" disabled={loading}>{loading ? <Spiner isTrue={true}/> : 'Update propertie'}</button>
           </div>
         </form>
       </div>

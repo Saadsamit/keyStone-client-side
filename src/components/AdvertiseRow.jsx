@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 
 const AdvertiseRow = ({data,num,handleClick,advertiseLength}) => {
-    console.log(data?.advertise);
   return (
     <tr>
       <td>{num}</td>

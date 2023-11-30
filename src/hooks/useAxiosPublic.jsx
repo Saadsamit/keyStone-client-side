@@ -1,6 +1,7 @@
 import axios from 'axios';
+// baseURL: 'http://localhost:5000/api/v1'
 const axiosPublic = axios.create({
-    baseURL: 'http://localhost:5000/api/v1',
+    baseURL: 'https://keystone-two.vercel.app/api/v1',
     
 })
 const useAxiosPublic = () => {

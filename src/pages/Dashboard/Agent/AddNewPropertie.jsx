@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { myAuthProvider } from './../../../provider/AuthProvider';
 import { imageUploder } from "../../../api/imageUploder/imageUploder";
@@ -8,14 +8,17 @@ import { useNavigate } from "react-router-dom";
 
 const AddNewPropertie = () => {
     const {user} = useContext(myAuthProvider)
+    const [IsLoading,setIsLoading] = useState(false)
     const navigate = useNavigate()
     const axios = useAxiosPrivate()
   const { register, handleSubmit } = useForm();
   const onSubmit = async(data) => {
+    setIsLoading(true)
     const imageFile = { image: data.photo_Url[0] };
     const imgData = await imageUploder(imageFile);
     let PriceRange;
     if(data.PriceRange2.length > 6 || data.PriceRange1.length > 6){
+      setIsLoading(false)
         return toast.error('number cannot then 6 character');
     }
     if(data.PriceRange1 > data.PriceRange2){
@@ -25,8 +28,11 @@ const AddNewPropertie = () => {
     }
     const addData = {property: { image:imgData.data.display_url, title:data.title, location:data.location, details:data.details, PriceRange }, agent: { name:user.displayName, image:user.photoURL, email:user.email }}
     axios.post('/newPropertie',addData).then(()=>{
+      setIsLoading(false)
         toast.success('Propertie Add Successfully')
         navigate('/Dashboard/My-added-properties')
+    }).catch(()=>{
+      setIsLoading(false)
     })
   };
   //property: { image, title, location, details, PriceRange }, agent: { name, image, email }
@@ -149,7 +155,7 @@ const AddNewPropertie = () => {
             </div>
           </div>
           <div className="text-center">
-            <button className="btnStyle mt-5">add propertie</button>
+            <button className="btnStyle mt-5" disabled={IsLoading}>add propertie</button>
           </div>
         </form>
       </div>
