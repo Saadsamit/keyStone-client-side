@@ -9,3 +9,15 @@ website link: https://keystone-4eb5f.web.app
 <li>agent can post property add property update property can delete own property can see own property review</li>
 <li>admin can see all added property can make property verified can Advertise property can delete user can delete review</li>
 </ul>
+
+# technology I use
+- Html 
+- Css 
+- Tailwind Css
+- Javascript
+- React
+- Express
+- Mongoose
+- Firebase
+- jwt 
+- imgbb
